@@ -14,5 +14,7 @@ use TgBotCore\Contracts\iUser;
  */
 class User implements iUser
 {
-	public function __construct() {}
+	public function __construct() {
+		$lvl = BotKernelDebug();
+	}
 }

@@ -1,0 +1,16 @@
+{
+	"platforms"	: {
+		"telegram"	: {
+			"token"	: "YOUR_TOKEN"
+		},
+		"whatsapp"	: {
+			"token"	: "YOUR_TOKEN"
+		}
+	},
+	"database"	: {
+		"host"	: "YOUR_HOST",
+		"user"	: "YOUR_LOGIN",
+		"pass"	: "YOUR_PASSWORD",
+		"base"	: "YOUR_BASE"
+	}
+}

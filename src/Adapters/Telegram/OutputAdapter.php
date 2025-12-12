@@ -13,34 +13,34 @@ class OutputAdapter implements iOutputAdapter
 	protected $token;
 	
 	public function __construct(string $token) {
+		$lvl = BotKernelDebug();
 		$this->token = $token;
 	}
 
 	public function getRequestUrl($method) : string {
+		$lvl = BotKernelDebug();
 		return 'https://api.telegram.org/bot' . $this->token . '/' . $method;
 	}
 
 	public function sendMessage(iMessage $Message) {
+		$lvl = BotKernelDebug();
 		$url = $this->getRequestUrl('sendMessage');
 		$data = $this->convertMessageToData($Message);
 
 		return $this->curl($url, $data);
 	}
 
-	public function convertMessageToData($Message) : array {
+	protected function convertMessageToData($Message) : array {
+		$lvl = BotKernelDebug();
 		$result = [
-			"chat_id"	=> $Message->getChatID(),
+			"chat_id"	=> $Message->getChatPID(),
 			"text"		=> $Message->getText()
 		];
-		echo "<pre>";
-		print_r('BotKernel::convertMessageToData()' . "\n");
-		print_r($result);
-		echo "</pre>";
 		return $result;
 	}
 
-	public function curl(string $url, array $data) {
-
+	protected function curl(string $url, array $data) {
+		$lvl = BotKernelDebug();
 		$curl = curl_init();
 		curl_setopt_array($curl, [
 			CURLOPT_POST => 1,
@@ -54,8 +54,8 @@ class OutputAdapter implements iOutputAdapter
 		$result = curl_exec($curl);
 		curl_close($curl);
 		echo "<pre>";
-		print_r('BotKernel::curl()' . "\n");
-		print_r(json_decode($result, true));
+			echo str_repeat("    ", $lvl);
+			print_r(json_decode($result, true));
 		echo "</pre>";
 		return (($return = json_decode($result, true)) ? $return : $result);
 	}

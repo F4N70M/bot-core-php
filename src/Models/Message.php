@@ -18,19 +18,24 @@ class Message implements iMessage
 	protected $chatID;
 
 	public function __construct() {
+		$lvl = BotKernelDebug();
 	}
 
 	public function setText($data) {
+		$lvl = BotKernelDebug();
 		$this->data = $data;
 	}
-	public function setChatID($chatID) {
+	public function setChatPID($chatID) {
+		$lvl = BotKernelDebug();
 		$this->chatID = $chatID;
 	}
 
 	public function getText() {
+		$lvl = BotKernelDebug();
 		return $this->data;
 	}
-	public function getChatID() {
+	public function getChatPID() {
+		$lvl = BotKernelDebug();
 		return $this->chatID;
 	}
 }

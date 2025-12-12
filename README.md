@@ -1,2 +1,2 @@
-# tg-bot-core
-Telegram bot core on PHP
+# bot-core-php
+Multiplatform bot core on PHP

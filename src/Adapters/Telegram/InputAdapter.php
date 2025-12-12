@@ -16,9 +16,12 @@ class InputAdapter implements iInputAdapter
 	protected $platform = "telegram";
 	
 	public function __construct() {
+		$lvl = BotKernelDebug();
 	}
 
 	public function convertToStandartUpdate(array $rawData) : iUpdate {
+		$lvl = BotKernelDebug();
+		
 		// echo "<pre>";
 		// 	print_r('InputAdapter::convertToStandartUpdate()' . "\n");
 		// 	print_r($rawData);
@@ -30,6 +33,7 @@ class InputAdapter implements iInputAdapter
 	}
 
 	public function convertToStandartData($rawData) : array {
+		$lvl = BotKernelDebug();
 		$standartData = [];
 		$standartData["timestamp"] = time();
 		$standartData["platform"] = $this->platform;
@@ -39,15 +43,16 @@ class InputAdapter implements iInputAdapter
 		$standartData["from"] = $this->getUpdateFrom($rawData);
 		$standartData["content"] = $this->getUpdateContent($rawData);
 		$standartData["meta"] = $this->getUpdateMeta($rawData);
-		echo "<pre>";
-			print_r("InputAdapter::convertToStandartData()" . "\n");
-			print_r($rawData);
-			print_r($standartData);
-		echo "</pre>";
+		// echo "<pre>";
+			// print_r("InputAdapter::convertToStandartData()" . "\n");
+			// print_r($rawData);
+			// print_r($standartData);
+		// echo "</pre>";
 		return $standartData;
 	}
 
 	protected function getUpdateType($rawData) : string {
+		$lvl = BotKernelDebug();
 		if (isset($rawData['message'])) {
 			return "message";
 		} elseif (isset($rawData['callback_query'])) {
@@ -57,7 +62,7 @@ class InputAdapter implements iInputAdapter
 	}
 
 	protected function getUpdateChat($rawData) : array {
-
+		$lvl = BotKernelDebug();
 		if (isset($rawData['message'])) {
 			$rawChat = $rawData['message']['chat'];
 		} elseif (isset($rawData['callback_query'])) {
@@ -65,18 +70,20 @@ class InputAdapter implements iInputAdapter
 		}
 
 		$chat = [];
-		$chat["id"] = $rawChat["id"];
+		$chat["pid"] = $rawChat["id"];
 		$chat["type"] = $rawChat["type"];
-		$chat["username"] = array_key_exists("username", $rawChat) ? $rawChat["username"] : null;
-		$chat["first_name"] = array_key_exists("first_name", $rawChat) ? $rawChat["first_name"] : null;
-		$chat["last_name"] = array_key_exists("last_name", $rawChat) ? $rawChat["last_name"] : null;
+		if (array_key_exists("title", $rawChat))		$chat["title"] = $rawChat["title"];
+		if (array_key_exists("username", $rawChat))		$chat["username"] = $rawChat["username"];
+		if (array_key_exists("first_name", $rawChat))	$chat["first_name"] = $rawChat["first_name"];
+		if (array_key_exists("last_name", $rawChat))	$chat["last_name"] = $rawChat["last_name"];
+		if (array_key_exists("is_forum", $rawChat))		$chat["is_forum"] = $rawChat["is_forum"];
 
 
 		return $chat;
 	}
 
 	protected function getUpdateFrom($rawData) : array {
-
+		$lvl = BotKernelDebug();
 		if (isset($rawData['message'])) {
 			$rawFrom = $rawData['message']['from'];
 		} elseif (isset($rawData['callback_query'])) {
@@ -96,11 +103,13 @@ class InputAdapter implements iInputAdapter
 	}
 
 	protected function getUpdateContent($rawData) : array {
+		$lvl = BotKernelDebug();
 		$content = [];
 		return $content;
 	}
 
 	protected function getUpdateMeta($rawData) : array {
+		$lvl = BotKernelDebug();
 		$meta = [];
 		$meta["raw_data"] = $rawData;
 		return $meta;
