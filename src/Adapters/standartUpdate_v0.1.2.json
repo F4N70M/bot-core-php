@@ -1,0 +1,293 @@
+{
+	"schema_version": "0.2.0", // версия схемы (all)
+	"platform": "telegram|whatsapp|vk", // платформа источника (all)
+	"event_type": "message|callback|status|commerce|system", // тип события (all)
+	"event_id": "unique_event_identifier", // уникальный идентификатор события (all)
+	"timestamp": 1600000000, // временная метка события (all)
+	
+	"data": {
+		"message": {
+			"id": "message_unique_id", // идентификатор сообщения (all)
+			"type": "text|image|video|audio|document|location|contact|sticker|poll|video_note|template|interactive|etc", // тип сообщения (all)
+			"timestamp": 1600000000, // время отправки сообщения (all)
+			"edit_timestamp": 1600000001, // время редактирования (telegram|vk)
+			
+			"sender": {
+				"id": "user_unique_id", // уникальный идентификатор пользователя (all)
+				"platform_id": "platform_specific_id", // платформенный ID (all)
+				"username": "johndoe", // username пользователя (telegram|vk)
+				"first_name": "John", // имя (all)
+				"last_name": "Doe", // фамилия (all)
+				"display_name": "John Doe", // отображаемое имя (whatsapp|vk)
+				"language": "en", // язык пользователя (telegram)
+				"is_bot": false, // является ли ботом (telegram)
+				"phone_number": "+1234567890", // номер телефона (whatsapp|telegram)
+				"is_premium": true // является ли премиум (telegram)
+			},
+			
+			"chat": {
+				"id": "chat_unique_id", // идентификатор чата (all)
+				"type": "private|group|channel|supergroup|forum", // тип чата (telegram|vk)
+				"title": "Group Chat", // название чата (all)
+				"username": "group_username", // username чата (telegram)
+				"display_name": "Group Display Name", // отображаемое имя (whatsapp)
+				"participants_count": 5, // количество участников (telegram|whatsapp|vk)
+				"forum_topic_id": 123, // ID темы форума (telegram)
+				"forum_topic_name": "Technical Support", // название темы форума (telegram)
+				"invite_link": "https://t.me/joinchat/xxx", // ссылка-приглашение (telegram)
+				"description": "Group description", // описание чата (telegram|vk)
+				"about": "Group about text", // информация о чате (whatsapp)
+				"profile_picture_url": "https://example.com/photo.jpg" // URL аватарки (whatsapp)
+			},
+			
+			"content": {
+				"text": "Message text OR Photo caption", // текст сообщения или подпись (all)
+				"entities": [ // форматирование текста (telegram|vk)
+					{
+						"type": "bold|italic|link|mention|hashtag|etc", // тип форматирования
+						"offset": 0, // смещение
+						"length": 5, // длина
+						"url": "https://example.com" // URL для ссылок
+					}
+				],
+				
+				"media": [ // медиафайлы (all)
+					{
+						"type": "image|video|audio|document|voice|sticker|animation|video_note", // тип медиа
+						"id": "media_file_id", // идентификатор файла (all)
+						"file_unique_id": "unique_file_identifier", // уникальный ID файла (telegram)
+						"url": "https://example.com/file.jpg", // URL файла (whatsapp|vk)
+						"mime_type": "image/jpeg", // MIME-тип (all)
+						"file_size": 1024000, // размер файла (telegram|whatsapp)
+						"duration": 60, // длительность (audio|video|voice)
+						"width": 1920, // ширина (image|video)
+						"height": 1080, // высота (image|video)
+						"file_name": "document.pdf", // имя файла (document)
+						"performer": "Artist Name", // исполнитель (audio)
+						"title": "Song Title", // название (audio)
+						"emoji": "😀", // эмодзи (sticker)
+						
+						"sizes": [ // доступные размеры (telegram - photo)
+							{
+								"file_id": "file_id_small", // ID файла размера
+								"width": 320, // ширина
+								"height": 240, // высота
+								"file_size": 12000 // размер
+							}
+						],
+						
+						"thumbnails": [ // превью (all)
+							{
+								"url": "https://example.com/thumb_small.jpg", // URL превью
+								"width": 160, // ширина
+								"height": 120, // высота
+								"file_size": 12000 // размер
+							}
+						]
+					}
+				],
+				
+				"location": { // местоположение (telegram|whatsapp)
+					"latitude": 55.7558, // широта
+					"longitude": 37.6173, // долгота
+					"address": "Moscow, Russia", // адрес (whatsapp)
+					"name": "Red Square", // название места (telegram)
+					"live_period": 3600, // период обновления live-локации (telegram)
+					"heading": 90 // направление (telegram)
+				},
+				
+				"contact": { // контакт (telegram|whatsapp)
+					"phone_number": "+1234567890", // номер телефона
+					"first_name": "John", // имя
+					"last_name": "Doe", // фамилия
+					"vcard": "VCARD_DATA", // vCard данные (telegram|whatsapp)
+					"user_id": 123456 // ID пользователя Telegram (telegram)
+				},
+				
+				"poll": { // опрос (telegram)
+					"id": "poll_123", // ID опроса
+					"question": "Your favorite color?", // вопрос
+					"options": [ // варианты ответа
+						{"text": "Red", "voter_count": 5},
+						{"text": "Blue", "voter_count": 3}
+					],
+					"is_anonymous": false, // анонимный ли опрос
+					"type": "regular|quiz", // тип опроса
+					"allows_multiple_answers": false, // множественные ответы
+					"correct_option_id": 0, // ID правильного ответа (quiz)
+					"is_closed": false, // закрыт ли опрос
+					"total_voter_count": 8 // общее количество голосов
+				},
+				
+				"dice": { // dice (telegram)
+					"emoji": "🎲", // эмодзи
+					"value": 6 // значение
+				},
+
+				"template": { // шаблонное сообщение (whatsapp)
+					"namespace": "your_namespace", // пространство имен
+					"name": "template_name", // название шаблона
+					"language": "en", // язык
+					"components": [ // компоненты
+						{
+							"type": "header|body|button", // тип компонента
+							"parameters": [ // параметры
+								{"type": "text|currency|date_time", "text": "value"}
+							]
+						}
+					]
+				},
+
+				"interactive": { // интерактивное сообщение (whatsapp)
+					"type": "button|list|product|product_list", // тип
+					"button_reply": { // ответ на кнопку
+						"id": "button_id", // ID кнопки
+						"title": "button_text" // текст кнопки
+					},
+					"list_reply": { // ответ из списка
+						"id": "list_item_id", // ID элемента списка
+						"title": "list_item_title", // заголовок
+						"description": "list_item_description" // описание
+					}
+				}
+			},
+			
+			"context": { // контекст сообщения
+				"is_forwarded": false, // переслано ли (telegram|vk)
+				"is_reply": true, // является ли ответом (all)
+				"reply_to_message_id": "original_message_id", // ID исходного сообщения (all)
+				"forward_from": { // информация о пересылке (telegram)
+					"id": "original_sender_id", // ID исходного отправителя
+					"name": "Original Sender", // имя
+					"timestamp": 1599999999 // время отправки
+				},
+				"via_bot": { // через какого бота отправлено (telegram)
+					"id": "bot_id", // ID бота
+					"username": "bot_username" // username бота
+				},
+				"story": { // история (telegram)
+					"id": "story_id", // ID истории
+					"sender_id": "user_id" // ID отправителя
+				}
+			},
+
+			"reaction": { // реакция на сообщение (telegram|whatsapp)
+				"message_id": "target_message_id", // ID целевого сообщения
+				"emoji": "👍", // эмодзи реакции
+				"user_id": "user_who_reacted" // ID пользователя
+			}
+		},
+		
+		"callback": { // callback события
+			"type": "button_callback|list_selection|quick_reply|inline_query", // тип callback
+			"data": "callback_payload_data", // данные callback (telegram|whatsapp)
+			"message_id": "source_message_id", // ID исходного сообщения (telegram|whatsapp)
+			"inline_message_id": "inline_message_identifier", // ID инлайн-сообщения (telegram)
+			"button_text": "Click Me", // текст кнопки (telegram)
+			"selected_option": "option_1", // выбранная опция (whatsapp)
+			"chat_instance": "chat_instance_id", // инстанс чата (telegram)
+			
+			"inline_query": { // инлайн-запрос (telegram)
+				"id": "query_id", // ID запроса
+				"query": "search text", // текст запроса
+				"offset": "0" // смещение
+			}
+		},
+		
+		"status": { // статусные события
+			"type": "delivered|read|typing|online|offline|reaction|chat_event", // тип статуса
+			"message_id": "target_message_id", // ID целевого сообщения (whatsapp|telegram)
+			"timestamp": 1600000000, // временная метка
+			"user_id": "user_who_action", // ID пользователя
+			
+			"chat_event": { // события чата (vk|telegram)
+				"type": "user_join|user_leave|title_change|photo_update|pinned_message", // тип события
+				"user_id": "affected_user_id", // ID затронутого пользователя
+				"old_value": "old_title", // старое значение
+				"new_value": "new_title" // новое значение
+			}
+		},
+		
+		"commerce": { // коммерческие события
+			"type": "order|payment|product|invoice|shipping", // тип события
+			"order_id": "order_123", // ID заказа
+			"invoice_id": "invoice_456", // ID инвойса (telegram)
+			"products": [ // товары
+				{
+					"id": "product_1", // ID товара
+					"name": "Product Name", // название
+					"quantity": 2, // количество
+					"price": 19.99, // цена
+					"currency": "USD" // валюта
+				}
+			],
+			"total_amount": 39.98, // общая сумма
+			"currency": "USD", // валюта
+			"status": "pending|completed|failed", // статус
+			"provider_data": "payment_provider_data", // данные провайдера
+			"shipping_option_id": "shipping_1" // ID варианта доставки
+		},
+
+		"system": { // системные события
+			"type": "web_app_data|passport_data|voice_chat|chat_member", // тип системного события
+			"data": "system_specific_data", // системные данные
+			
+			"web_app_data": { // данные Web App (telegram)
+				"data": "web_app_data_string", // данные
+				"button_text": "Button Text" // текст кнопки
+			},
+			
+			"passport_data": { // Telegram Passport (telegram)
+				"data": "encrypted_passport_data", // зашифрованные данные
+				"credentials": "encrypted_credentials" // учетные данные
+			},
+			
+			"voice_chat": { // голосовой чат (telegram)
+				"type": "scheduled|started|ended", // тип события
+				"participants_count": 5, // количество участников
+				"start_date": 1600000000 // дата начала
+			}
+		}
+	},
+	
+	"metadata": { // метаданные
+		"platform_specific": { // платформенно-специфичные данные
+			"telegram": { // Telegram специфика
+				"update_id": 123, // ID апдейта
+				"chat_shared": {"request_id": 123, "chat_id": 456}, // общий чат
+				"user_shared": {"request_id": 123, "user_id": 456}, // общий пользователь
+				"message_id": 123, // ID сообщения
+				"from": {"id": 123, "is_bot": false}, // отправитель
+				"chat": {"id": 456, "type": "private"} // чат
+			},
+			"whatsapp": { // WhatsApp специфика
+				"phone_number_id": "123", // ID номера телефона
+				"business_account_id": "456", // ID бизнес-аккаунта
+				"waba_id": "789", // ID WABA
+				"message": { // данные сообщения
+					"from": "1234567890", // отправитель
+					"id": "message_id", // ID сообщения
+					"timestamp": "1600000000" // временная метка
+				},
+				"contacts": [ // контакты
+					{
+						"profile": {"name": "John Doe"}, // профиль
+						"wa_id": "1234567890" // WhatsApp ID
+					}
+				]
+			},
+			"vk": { // VK специфика
+				"group_id": 123, // ID группы
+				"secret": "key", // секретный ключ
+				"client_info": {"button_actions": ["text"]}, // информация о клиенте
+				"object": { // объект события
+					"message": {"id": 123, "from_id": 456}, // сообщение
+					"client_info": {"button_actions": ["text"]} // информация о клиенте
+				}
+			}
+		},
+		"raw_data": {}, // полные сырые данные запроса (all)
+		"converter_version": "0.1.2", // версия конвертера (all)
+		"processing_time": 15 // время обработки в ms (all)
+	}
+}

@@ -1,0 +1,118 @@
+{
+  "platform": "telegram|whatsapp|vk",
+  "event_type": "message_new|callback_query|status_update|etc",
+  "event_id": "unique_event_identifier",
+  "timestamp": 1600000000,
+  
+  "message": {
+    "id": "message_unique_id",
+    "text": "Hello, world!",
+    "type": "text|image|video|audio|document|location|contact|sticker|poll|etc",
+    "timestamp": 1600000000,
+    
+    "sender": {
+      "id": "user_unique_id",
+      "platform_id": "platform_specific_id",
+      "username": "johndoe",
+      "first_name": "John",
+      "last_name": "Doe",
+      "language": "en",
+      "is_bot": false,
+      "phone_number": "+1234567890"
+    },
+    
+    "chat": {
+      "id": "chat_unique_id",
+      "type": "private|group|channel|supergroup",
+      "title": "Group Chat",
+      "username": "group_username",
+      "participants_count": 5
+    },
+    
+    "content": {
+      "text": "Hello, world!",
+      "caption": "Photo caption",
+      
+      "media": {
+        "type": "image|video|audio|document|voice|sticker",
+        "id": "media_file_id",
+        "url": "https://example.com/file.jpg",
+        "mime_type": "image/jpeg",
+        "file_size": 1024000,
+        "duration": 60,
+        "width": 1920,
+        "height": 1080,
+        "thumbnail": {
+          "url": "https://example.com/thumb.jpg",
+          "width": 320,
+          "height": 240
+        }
+      },
+      
+      "location": {
+        "latitude": 55.7558,
+        "longitude": 37.6173,
+        "address": "Moscow, Russia",
+        "name": "Red Square"
+      },
+      
+      "contact": {
+        "phone_number": "+1234567890",
+        "first_name": "John",
+        "last_name": "Doe",
+        "vcard": "VCARD_DATA"
+      }
+    },
+    
+    "context": {
+      "is_forwarded": false,
+      "is_reply": true,
+      "reply_to_message_id": "original_message_id",
+      "forward_from": {
+        "id": "original_sender_id",
+        "name": "Original Sender"
+      }
+    }
+  },
+  
+  "interactive": {
+    "type": "button_callback|list_selection|quick_reply",
+    "data": "callback_payload_data",
+    "message_id": "source_message_id",
+    "button_text": "Click Me",
+    "selected_option": "option_1"
+  },
+  
+  "status": {
+    "type": "delivered|read|typing|online|offline",
+    "message_id": "target_message_id",
+    "timestamp": 1600000000,
+    "user_id": "user_who_action"
+  },
+  
+  "commerce": {
+    "type": "order|payment|product",
+    "order_id": "order_123",
+    "products": [
+      {
+        "id": "product_1",
+        "name": "Product Name",
+        "quantity": 2,
+        "price": 19.99,
+        "currency": "USD"
+      }
+    ],
+    "total_amount": 39.98,
+    "currency": "USD",
+    "status": "pending|completed|failed"
+  },
+  
+  "metadata": {
+    "platform_specific": {
+      "telegram": {"update_id": 123},
+      "whatsapp": {"phone_number_id": "123", "business_account_id": "456"},
+      "vk": {"group_id": 123, "secret": "key"}
+    },
+    "raw_data": {}
+  }
+}

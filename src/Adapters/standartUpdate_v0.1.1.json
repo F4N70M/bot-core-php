@@ -1,0 +1,190 @@
+{
+  "platform": "telegram|whatsapp|vk",
+  "event_type": "message_new|message_edit|callback_query|status_update|etc",
+  "event_id": "unique_event_identifier",
+  "timestamp": 1600000000,
+  
+  "message": {
+    "id": "message_unique_id",
+    "type": "text|image|video|audio|document|location|contact|sticker|poll|etc",
+    "timestamp": 1600000000,
+    "edit_timestamp": 1600000001,
+    
+    "sender": {
+      "id": "user_unique_id",
+      "platform_id": "platform_specific_id",
+      "username": "johndoe",
+      "first_name": "John",
+      "last_name": "Doe",
+      "language": "en",
+      "is_bot": false,
+      "phone_number": "+1234567890",
+      "is_premium": true
+    },
+    
+    "chat": {
+      "id": "chat_unique_id",
+      "type": "private|group|channel|supergroup|forum",
+      "title": "Group Chat",
+      "username": "group_username",
+      "participants_count": 5,
+      "forum_topic_id": 123,
+      "forum_topic_name": "Technical Support",
+      "invite_link": "https://t.me/joinchat/xxx",
+      "description": "Group description"
+    },
+    
+    "content": {
+      "text": "Message text OR Photo caption",
+      "entities": [
+        {
+          "type": "bold|italic|link|mention|hashtag|etc",
+          "offset": 0,
+          "length": 5,
+          "url": "https://example.com"
+        }
+      ],
+      
+      "media": [
+        {
+          "type": "image|video|audio|document|voice|sticker|animation",
+          "id": "media_file_id",
+          "internal_id": "photo_123_456", // для Telegram photo_id
+          "url": "https://example.com/file.jpg",
+          "mime_type": "image/jpeg",
+          "file_size": 1024000,
+          "duration": 60,
+          "width": 1920,
+          "height": 1080,
+          "file_name": "document.pdf",
+          "performer": "Artist Name",
+          "title": "Song Title",
+          "emoji": "😀", // для стикеров
+          
+          "thumbnails": [
+            {
+              "url": "https://example.com/thumb_small.jpg",
+              "width": 160,
+              "height": 120,
+              "file_size": 12000
+            },
+            {
+              "url": "https://example.com/thumb_medium.jpg", 
+              "width": 320,
+              "height": 240,
+              "file_size": 45000
+            }
+          ]
+        }
+      ],
+      
+      "location": {
+        "latitude": 55.7558,
+        "longitude": 37.6173,
+        "address": "Moscow, Russia",
+        "name": "Red Square",
+        "live_period": 3600, // для live location
+        "heading": 90 // направление
+      },
+      
+      "contact": {
+        "phone_number": "+1234567890",
+        "first_name": "John",
+        "last_name": "Doe",
+        "vcard": "VCARD_DATA",
+        "user_id": 123456 // если контакт - пользователь Telegram
+      },
+      
+      "poll": {
+        "id": "poll_123",
+        "question": "Your favorite color?",
+        "options": [
+          {"text": "Red", "voter_count": 5},
+          {"text": "Blue", "voter_count": 3}
+        ],
+        "is_anonymous": false,
+        "type": "regular|quiz",
+        "allows_multiple_answers": false,
+        "correct_option_id": 0,
+        "is_closed": false
+      },
+      
+      "dice": {
+        "emoji": "🎲",
+        "value": 6
+      }
+    },
+    
+    "context": {
+      "is_forwarded": false,
+      "is_reply": true,
+      "reply_to_message_id": "original_message_id",
+      "forward_from": {
+        "id": "original_sender_id",
+        "name": "Original Sender",
+        "timestamp": 1599999999
+      },
+      "via_bot": {
+        "id": "bot_id",
+        "username": "bot_username"
+      }
+    }
+  },
+  
+  "interactive": {
+    "type": "button_callback|list_selection|quick_reply",
+    "data": "callback_payload_data",
+    "message_id": "source_message_id",
+    "button_text": "Click Me",
+    "selected_option": "option_1",
+    "chat_instance": "chat_instance_id" // для Telegram
+  },
+  
+  "status": {
+    "type": "delivered|read|typing|online|offline",
+    "message_id": "target_message_id",
+    "timestamp": 1600000000,
+    "user_id": "user_who_action"
+  },
+  
+  "commerce": {
+    "type": "order|payment|product|invoice",
+    "order_id": "order_123",
+    "invoice_id": "invoice_456",
+    "products": [
+      {
+        "id": "product_1",
+        "name": "Product Name",
+        "quantity": 2,
+        "price": 19.99,
+        "currency": "USD"
+      }
+    ],
+    "total_amount": 39.98,
+    "currency": "USD",
+    "status": "pending|completed|failed",
+    "provider_data": "payment_provider_data",
+    "shipping_option_id": "shipping_1"
+  },
+  
+  "metadata": {
+    "platform_specific": {
+      "telegram": {
+        "update_id": 123,
+        "chat_shared": {"request_id": 123, "chat_id": 456},
+        "user_shared": {"request_id": 123, "user_id": 456}
+      },
+      "whatsapp": {
+        "phone_number_id": "123", 
+        "business_account_id": "456",
+        "waba_id": "789"
+      },
+      "vk": {
+        "group_id": 123, 
+        "secret": "key",
+        "client_info": {"button_actions": ["text"]}
+      }
+    },
+    "raw_data": {}
+  }
+}
